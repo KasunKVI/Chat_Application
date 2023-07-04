@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import lk.ijse.chat_app.dao.SQLUtil;
+import lk.ijse.chat_app.dao.custom.UserDAO;
+import lk.ijse.chat_app.dao.custom.impl.UserDAOImpl;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -39,6 +41,7 @@ public class LoginFormController {
     Stage stage = new Stage();
     private double xOffset = 0;
     private double yOffset = 0;
+    UserDAO userDAO = new UserDAOImpl();
 
     public void executeLogInMethod(ActionEvent event) {
 
@@ -79,6 +82,7 @@ public class LoginFormController {
                         try {
                             Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/chat_app/view/chat_room_form.fxml"));
                             Scene scene = new Scene(root);
+
                             scene.setOnMousePressed(even -> {
                                 xOffset = even.getSceneX();
                                 yOffset = even.getSceneY();
@@ -90,10 +94,11 @@ public class LoginFormController {
                             });
                               stage.setWidth(493);
                               stage.setHeight(928);
-                           stage.initStyle(StageStyle.UNDECORATED);
-                            stage.setTitle(txtUserName.getText() + "'s Chat Room");
-                            stage.setScene(scene);
-                            stage.show();
+                              stage.initStyle(StageStyle.UNDECORATED);
+                              stage.setTitle(txtUserName.getText() + "'s Chat Room");
+                              scene.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/massageStyle.css").toExternalForm());
+                              stage.setScene(scene);
+                              stage.show();
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
@@ -124,10 +129,8 @@ public class LoginFormController {
 
     public boolean exist(String user_name) throws SQLException {
 
-        String sql = "SELECT user_id FROM User WHERE user_name = ? ";
-        ResultSet resultSet = SQLUtil.execute(sql,user_name);
+       return userDAO.userExist(user_name);
 
-        return  resultSet.next();
     }
 
 }
