@@ -1,0 +1,28 @@
+.pane-style1 {
+    -fx-font-family: Ubuntu;
+    -fx-font-size: 12px;
+    -fx-background-color: #4cd137;
+    -fx-text-fill: #5c5c5c;
+    -fx-background-radius: 4 4 4 0;
+}
+.pane-style2 {
+    -fx-font-family: Ubuntu;
+    -fx-font-size: 15px;
+    -fx-background-color: #4cd137;
+    -fx-text-fill: #5c5c5c;
+    -fx-background-radius: 4 4 4 0;
+}
+.pane-style3 {
+    -fx-font-family: Ubuntu;
+    -fx-font-size: 12px;
+    -fx-background-color: #00a8ff;
+    -fx-text-fill: #5c5c5c;
+    -fx-background-radius: 0 6 6 6;
+}
+.pane-style4 {
+    -fx-font-family: Ubuntu;
+    -fx-font-size: 15px;
+    -fx-background-color: #00a8ff;
+    -fx-text-fill: #5c5c5c;
+    -fx-background-radius: 0 6 6 6;
+}
