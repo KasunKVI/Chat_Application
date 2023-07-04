@@ -34,15 +34,15 @@
             <Image url="@../img/icons8-back-64.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtName" alignment="CENTER" layoutX="187.0" layoutY="200.0" prefHeight="40.0" prefWidth="309.0" promptText="Input your name" style="-fx-background-radius: 8; -fx-background-color: #c8d6e5; -fx-border-color: #222f3e; -fx-border-radius: 8;">
+      <TextField fx:id="txtName" alignment="CENTER" layoutX="187.0" layoutY="200.0" onKeyReleased="#checkName" prefHeight="40.0" prefWidth="309.0" promptText="Input your name" style="-fx-background-radius: 8; -fx-background-color: #c8d6e5; -fx-border-color: #222f3e; -fx-border-radius: 8;">
          <font>
             <Font size="16.0" />
          </font></TextField>
-      <TextField fx:id="txtAddress" alignment="CENTER" layoutX="187.0" layoutY="417.0" onAction="#createAccount" prefHeight="40.0" prefWidth="309.0" promptText="Input your address" style="-fx-background-radius: 8; -fx-background-color: #c8d6e5; -fx-border-color: #222f3e; -fx-border-radius: 8;">
+      <TextField fx:id="txtAddress" alignment="CENTER" layoutX="187.0" layoutY="417.0" onAction="#createAccount" onKeyReleased="#checkAddress" prefHeight="40.0" prefWidth="309.0" promptText="Input your address" style="-fx-background-radius: 8; -fx-background-color: #c8d6e5; -fx-border-color: #222f3e; -fx-border-radius: 8;">
          <font>
             <Font name="Comic Sans MS" size="16.0" />
          </font></TextField>
-      <TextField fx:id="txtContact" alignment="CENTER" layoutX="187.0" layoutY="311.0" prefHeight="40.0" prefWidth="309.0" promptText="Input your contact" style="-fx-background-radius: 8; -fx-background-color: #c8d6e5; -fx-border-color: #222f3e; -fx-border-radius: 8;">
+      <TextField fx:id="txtContact" alignment="CENTER" layoutX="187.0" layoutY="311.0" onKeyReleased="#checkContact" prefHeight="40.0" prefWidth="309.0" promptText="Input your contact" style="-fx-background-radius: 8; -fx-background-color: #c8d6e5; -fx-border-color: #222f3e; -fx-border-radius: 8;">
          <font>
             <Font name="Comic Sans MS" size="16.0" />
          </font></TextField>

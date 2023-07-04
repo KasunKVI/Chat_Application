@@ -7,12 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.chat_app.dao.SQLUtil;
 import lk.ijse.chat_app.dao.custom.UserDAO;
 import lk.ijse.chat_app.dao.custom.impl.UserDAOImpl;
 import lk.ijse.chat_app.entity.User;
+import lk.ijse.chat_app.regEx.RegEx;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +36,7 @@ public class SignUpFormController {
 
     Stage stage = new Stage();
     UserDAO userDAO = new UserDAOImpl();
+    boolean isValid = false;
 
     @FXML
     void backToTheOpenForm(MouseEvent event) throws IOException {
@@ -73,4 +76,58 @@ public class SignUpFormController {
         createNewClientAccount(event);
 
     }
+
+    public void checkAddress(KeyEvent keyEvent) {
+
+        if (!txtAddress.getText().matches(RegEx.addressRegEx())) {
+
+            isValid = false;
+            txtAddress.getStyleClass().remove("grey-text-field");
+            txtAddress.getStyleClass().add("red-text-field1");
+
+        }else {
+
+            txtAddress.getStyleClass().remove("red-text-field1");
+            txtAddress.getStyleClass().add("grey-text-field");
+            isValid = true;
+
+        }
+
+    }
+
+    public void checkName(KeyEvent keyEvent) {
+
+        if (!txtName.getText().matches(RegEx.nameRegEx())) {
+
+            isValid = false;
+            txtName.getStyleClass().remove("grey-text-field");
+            txtName.getStyleClass().add("red-text-field1");
+
+        }else {
+
+            txtName.getStyleClass().remove("red-text-field1");
+            txtName.getStyleClass().add("grey-text-field");
+            isValid = true;
+
+        }
+
+    }
+
+    public void checkContact(KeyEvent keyEvent) {
+
+        if (!txtContact.getText().matches(RegEx.contactRegEx())) {
+
+            isValid = false;
+            txtContact.getStyleClass().remove("grey-text-field");
+            txtContact.getStyleClass().add("red-text-field1");
+
+        }else {
+
+            txtContact.getStyleClass().remove("red-text-field1");
+            txtContact.getStyleClass().add("grey-text-field");
+            isValid = true;
+
+        }
+    }
+
 }
