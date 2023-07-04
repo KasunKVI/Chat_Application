@@ -3,7 +3,7 @@ package lk.ijse.chat_app.regEx;
 public class RegEx {
 
     public static String nameRegEx(){
-        return "^[A-Z][a-z]{2,}(\\\\s+[A-Z][a-z]{2,})*$";
+        return "^[A-Za-z][a-z]{2,}*$";
     }
 
     public static String contactRegEx(){
