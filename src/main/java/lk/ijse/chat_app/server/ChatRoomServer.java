@@ -1,4 +1,4 @@
-package lk.ijse.chat_app.controller;
+package lk.ijse.chat_app.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -28,7 +28,7 @@ public class ChatRoomServer {
 
                 try {
 
-                    serverSocket = new ServerSocket(3003);
+                    serverSocket = new ServerSocket(3005);
                     System.out.println("Server Started");
 
                     while (true) {
