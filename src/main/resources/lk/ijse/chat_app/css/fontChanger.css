@@ -1,0 +1,15 @@
+.red-text-field {
+    -fx-text-fill: red;
+    -fx-font-family: Abyssinica SIL;
+    -fx-font-size: 23px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20;
+}
+
+.black-text-field {
+    -fx-text-fill: black;
+    -fx-font-family: Abyssinica SIL;
+    -fx-font-size: 23px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20;
+}
