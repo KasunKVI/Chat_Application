@@ -3,7 +3,7 @@
     -fx-font-family: Abyssinica SIL;
     -fx-font-size: 23px;
     -fx-background-radius: 20px;
-    -fx-border-radius: 20;
+    -fx-border-radius: 20px;
 }
 
 .black-text-field {
@@ -11,5 +11,25 @@
     -fx-font-family: Abyssinica SIL;
     -fx-font-size: 23px;
     -fx-background-radius: 20px;
-    -fx-border-radius: 20;
+    -fx-border-radius: 20px;
+}
+
+.red-text-field1 {
+    -fx-text-fill: red;
+    -fx-font-family: Comic Sans MS;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-background-color: #c8d6e5;
+    -fx-border-color: red;
+}
+
+.grey-text-field {
+    -fx-text-fill: black;
+    -fx-font-family: Comic Sans MS;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-background-color: #c8d6e5;
+    -fx-border-color: #222f3e;
 }
