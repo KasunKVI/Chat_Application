@@ -10,6 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.chat_app.dao.SQLUtil;
+import lk.ijse.chat_app.dao.custom.UserDAO;
+import lk.ijse.chat_app.dao.custom.impl.UserDAOImpl;
+import lk.ijse.chat_app.entity.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,6 +33,7 @@ public class SignUpFormController {
 
 
     Stage stage = new Stage();
+    UserDAO userDAO = new UserDAOImpl();
 
     @FXML
     void backToTheOpenForm(MouseEvent event) throws IOException {
@@ -50,8 +54,10 @@ public class SignUpFormController {
         String contact = txtContact.getText();
         String address = txtAddress.getText();
 
-        String sql = "INSERT INTO User(user_id,user_name,address) VALUES(?,?,?)";
-        SQLUtil.execute(sql,contact,name,address);
+        User user = new User(name,Integer.parseInt(contact),address);
+
+        userDAO.addNewUser(user);
+
 
         stage = (Stage) btnCreateAccount.getScene().getWindow();
         stage.close();
