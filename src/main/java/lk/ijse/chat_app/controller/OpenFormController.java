@@ -23,8 +23,9 @@ public class OpenFormController {
 
         stage = (Stage) btnSignIn.getScene().getWindow();
         stage.close();
-
-        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/login_form.fxml"))));
+        Scene scene = new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/login_form.fxml")));
+        scene.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/fontChanger.css").toExternalForm());
+        stage.setScene(scene);
         stage.setTitle("Chat Room LogIn");
         stage.show();
 
@@ -34,8 +35,9 @@ public class OpenFormController {
 
         stage = (Stage) btnSignUp.getScene().getWindow();
         stage.close();
-
-        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/sign_up_form.fxml"))));
+        Scene scene = new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/sign_up_form.fxml")));
+        scene.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/fontChanger.css").toExternalForm());
+        stage.setScene(scene);
         stage.setTitle("SignUp Form");
         stage.show();
 
