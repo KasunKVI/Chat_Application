@@ -6,7 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -52,11 +54,27 @@ public class SignUpFormController {
     }
 
     @FXML
-    void createNewClientAccount(ActionEvent event) throws SQLException, IOException {
+    void createNewClientAccount(ActionEvent event) throws SQLException, IOException, InterruptedException {
 
         if (!isValid){
 
-            new Alert(Alert.AlertType.ERROR, "Input Valid Details").show();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Details Error");
+            alert.setHeaderText("Please Enter Valid Details");
+            alert.setContentText("Your entered details are not valid. Please enter valid details");
+
+            // Customize the alert
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/customAlert.css").toExternalForm()); // Apply custom CSS
+
+            ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/lk/ijse/chat_app/img/icons8-error.gif")));
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+            alert.setGraphic(imageView);
+
+
+            alert.showAndWait();
 
         }else {
 
@@ -67,21 +85,45 @@ public class SignUpFormController {
 
             User user = new User(name, Integer.parseInt(contact), address);
 
-            userDAO.addNewUser(user);
+            boolean isUserAdd = userDAO.addNewUser(user);
+
+            if (isUserAdd) {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Registration Successful");
+                alert.setHeaderText("Thank you for registering!");
+                alert.setContentText("You have successfully registered for play chat.");
+
+              // Customize the alert
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/customAlert.css").toExternalForm()); // Apply custom CSS
+
+                ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/lk/ijse/chat_app/img/profile1.gif")));
+                imageView.setFitWidth(50);
+                imageView.setFitHeight(50);
+                alert.setGraphic(imageView);
 
 
-            stage = (Stage) btnCreateAccount.getScene().getWindow();
-            stage.close();
+                alert.showAndWait();
 
-            stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/login_form.fxml"))));
-            stage.setTitle("Chat Room LogIn");
-            stage.show();
+                stage = (Stage) btnCreateAccount.getScene().getWindow();
+                stage.close();
+
+                stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/login_form.fxml"))));
+                stage.setTitle("Chat Room LogIn");
+                stage.show();
+
+            }else {
+
+                new Alert(Alert.AlertType.ERROR, "There is some error in database operations. Please try again").show();
+
+            }
 
         }
 
     }
 
-    public void createAccount(ActionEvent event) throws SQLException, IOException {
+    public void createAccount(ActionEvent event) throws SQLException, IOException, InterruptedException {
 
         createNewClientAccount(event);
 

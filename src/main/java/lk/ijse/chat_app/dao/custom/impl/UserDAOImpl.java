@@ -23,8 +23,8 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public boolean addNewUser(User user) throws SQLException {
 
-        String sql = "INSERT INTO User(user_id,user_name,address) VALUES(?,?,?)";
-        return SQLUtil.execute(sql,user.getUser_name(),user.getUser_name(),user.getAddress());
+        String sql = "INSERT INTO User(user_name,user_id,address) VALUES(?,?,?)";
+        return SQLUtil.execute(sql,user.getUser_name(),user.getUserI_id(),user.getAddress());
 
     }
 }
