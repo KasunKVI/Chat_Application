@@ -1,0 +1,49 @@
+/* Custom Alert CSS */
+
+.alert {
+    -fx-font-size: 14px;
+}
+
+.dialog-pane {
+    -fx-background-color: #F5F5F5; /* Background color */
+}
+
+.dialog-pane > .label {
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .content.label {
+    -fx-font-size: 14px;
+}
+
+.dialog-pane .header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+.dialog-pane .header .label {
+    -fx-text-fill: #333333;
+}
+
+.dialog-pane .graphic {
+    -fx-padding: 10px;
+}
+
+.button-bar {
+    -fx-spacing: 10px;
+}
+
+.button-bar .button {
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+}
+
+.button-bar .button:hover {
+    -fx-background-color: #EEEEEE;
+}
+
+.button-bar .button:default {
+    -fx-background-color: #2196F3; /* Default button color */
+    -fx-text-fill: white;
+}
