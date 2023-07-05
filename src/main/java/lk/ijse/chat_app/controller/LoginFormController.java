@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -66,12 +67,25 @@ public class LoginFormController {
 
             if (!isExist){
 
-                ButtonType manage = new ButtonType("SighUp", ButtonBar.ButtonData.YES);
-                ButtonType bill = new ButtonType("Try Again", ButtonBar.ButtonData.YES);
+                ButtonType SignUp = new ButtonType("SighUp", ButtonBar.ButtonData.YES);
+                ButtonType TryAgain = new ButtonType("Try Again", ButtonBar.ButtonData.YES);
 
-                Optional<ButtonType> result = new Alert(Alert.AlertType.ERROR, "This user is not exist! Please use Signup or Try again", manage, bill).showAndWait();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "This user is not exist! Please use Signup or Try again", SignUp, TryAgain);
+                alert.setHeaderText("Please Enter Valid Details");
+                // Customize the alert
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/customAlert.css").toExternalForm()); // Apply custom CSS
 
-                if (result.orElse(null)==bill) {
+                ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/lk/ijse/chat_app/img/icons8-error.gif")));
+                imageView.setFitWidth(50);
+                imageView.setFitHeight(50);
+                alert.setGraphic(imageView);
+
+
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.orElse(null)==TryAgain) {
 
                         txtUserName.requestFocus();
 
