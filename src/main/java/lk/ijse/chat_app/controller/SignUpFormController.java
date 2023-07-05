@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -53,21 +54,30 @@ public class SignUpFormController {
     @FXML
     void createNewClientAccount(ActionEvent event) throws SQLException, IOException {
 
-        String name = txtName.getText();
-        String contact = txtContact.getText();
-        String address = txtAddress.getText();
+        if (!isValid){
 
-        User user = new User(name,Integer.parseInt(contact),address);
+            new Alert(Alert.AlertType.ERROR, "Input Valid Details").show();
 
-        userDAO.addNewUser(user);
+        }else {
 
 
-        stage = (Stage) btnCreateAccount.getScene().getWindow();
-        stage.close();
+            String name = txtName.getText();
+            String contact = txtContact.getText();
+            String address = txtAddress.getText();
 
-        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/login_form.fxml"))));
-        stage.setTitle("Chat Room LogIn");
-        stage.show();
+            User user = new User(name, Integer.parseInt(contact), address);
+
+            userDAO.addNewUser(user);
+
+
+            stage = (Stage) btnCreateAccount.getScene().getWindow();
+            stage.close();
+
+            stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/login_form.fxml"))));
+            stage.setTitle("Chat Room LogIn");
+            stage.show();
+
+        }
 
     }
 
