@@ -8,9 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -19,10 +19,12 @@ import javafx.util.Duration;
 import lk.ijse.chat_app.dao.SQLUtil;
 import lk.ijse.chat_app.dao.custom.UserDAO;
 import lk.ijse.chat_app.dao.custom.impl.UserDAOImpl;
+import lk.ijse.chat_app.regEx.RegEx;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 
 public class LoginFormController {
@@ -42,77 +44,111 @@ public class LoginFormController {
     private double xOffset = 0;
     private double yOffset = 0;
     UserDAO userDAO = new UserDAOImpl();
+    boolean isUserNameValid =  false;
 
-    public void executeLogInMethod(ActionEvent event) {
+    public void executeLogInMethod(ActionEvent event) throws SQLException, IOException {
 
         logInToChatRoom(event);
 
     }
 
-    public void logInToChatRoom(ActionEvent event) {
+    public void logInToChatRoom(ActionEvent event) throws SQLException, IOException {
 
         String userName = txtUserName.getText();
 
-        try {
-            if (exist(userName)) {
+        if(!isUserNameValid){
+
+            new Alert(Alert.AlertType.ERROR, "Please enter a valid user name").show();
+
+        }else {
+
+            boolean isExist = userDAO.userExist(userName);
+
+            if (!isExist){
+
+                ButtonType manage = new ButtonType("SighUp", ButtonBar.ButtonData.YES);
+                ButtonType bill = new ButtonType("Try Again", ButtonBar.ButtonData.YES);
+
+                Optional<ButtonType> result = new Alert(Alert.AlertType.ERROR, "This user is not exist! Please use Signup or Try again", manage, bill).showAndWait();
+
+                if (result.orElse(null)==bill) {
+
+                        txtUserName.requestFocus();
+
+                }else{
 
 
-                unlockPane.setVisible(true);
-                FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), unlockPane);
-                fadeTransition.setFromValue(0);
-                fadeTransition.setToValue(1);
-                fadeTransition.play();
+                    stage= (Stage) btnLogIn.getScene().getWindow();
+                    stage.close();
+
+                    stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/lk/ijse/chat_app/view/sign_up_form.fxml"))));
+                    stage.show();
+
+                }
+
+            }else {
+
+                try {
+                    if (exist(userName)) {
 
 
-                fadeTransition.setOnFinished(e -> {
+                        unlockPane.setVisible(true);
+                        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), unlockPane);
+                        fadeTransition.setFromValue(0);
+                        fadeTransition.setToValue(1);
+                        fadeTransition.play();
 
 
+                        fadeTransition.setOnFinished(e -> {
 
-                    Duration delay = Duration.seconds(0.2);
-                    KeyFrame keyFrame = new KeyFrame(delay, events -> {
 
-                       // ChatRoomServer server = new ChatRoomServer();
-                       // server.startServer();
+                            Duration delay = Duration.seconds(0.2);
+                            KeyFrame keyFrame = new KeyFrame(delay, events -> {
 
-                        stage= (Stage) btnLogIn.getScene().getWindow();
-                        stage.close();
+                                // ChatRoomServer server = new ChatRoomServer();
+                                // server.startServer();
 
-                        Stage stage = new Stage();
+                                stage = (Stage) btnLogIn.getScene().getWindow();
+                                stage.close();
 
-                        try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/chat_app/view/chat_room_form.fxml"));
-                            Scene scene = new Scene(root);
+                                Stage stage = new Stage();
 
-                            scene.setOnMousePressed(even -> {
-                                xOffset = even.getSceneX();
-                                yOffset = even.getSceneY();
+                                try {
+                                    Parent root = FXMLLoader.load(getClass().getResource("/lk/ijse/chat_app/view/chat_room_form.fxml"));
+                                    Scene scene = new Scene(root);
+
+                                    scene.setOnMousePressed(even -> {
+                                        xOffset = even.getSceneX();
+                                        yOffset = even.getSceneY();
+                                    });
+                                    scene.setOnMouseDragged(even -> {
+                                        stage.setX(even.getScreenX() - xOffset);
+                                        stage.setY(even.getScreenY() - yOffset);
+
+                                    });
+                                    stage.setWidth(493);
+                                    stage.setHeight(928);
+                                    stage.initStyle(StageStyle.UNDECORATED);
+                                    stage.setTitle(txtUserName.getText() + "'s Chat Room");
+                                    scene.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/massageStyle.css").toExternalForm());
+                                    stage.setScene(scene);
+                                    stage.show();
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                                unlockPane.setVisible(false);
                             });
-                            scene.setOnMouseDragged(even -> {
-                                stage.setX(even.getScreenX() - xOffset);
-                                stage.setY(even.getScreenY() - yOffset);
 
-                            });
-                              stage.setWidth(493);
-                              stage.setHeight(928);
-                              stage.initStyle(StageStyle.UNDECORATED);
-                              stage.setTitle(txtUserName.getText() + "'s Chat Room");
-                              scene.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/massageStyle.css").toExternalForm());
-                              stage.setScene(scene);
-                              stage.show();
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        unlockPane.setVisible(false);
-                    });
+                            Timeline timeline = new Timeline(keyFrame);
+                            timeline.play();
+                        });
 
-                    Timeline timeline = new Timeline(keyFrame);
-                    timeline.play();
-                });
+                    }
 
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
 
     }
@@ -133,4 +169,20 @@ public class LoginFormController {
 
     }
 
+    public void checkUserName(KeyEvent keyEvent) {
+
+        if (!txtUserName.getText().matches(RegEx.nameRegEx())) {
+
+            isUserNameValid = false;
+            txtUserName.getStyleClass().remove("black-text-field");
+            txtUserName.getStyleClass().add("red-text-field");
+
+        }else {
+
+            txtUserName.getStyleClass().remove("red-text-field");
+            txtUserName.getStyleClass().add("black-text-field");
+            isUserNameValid = true;
+
+        }
+    }
 }
