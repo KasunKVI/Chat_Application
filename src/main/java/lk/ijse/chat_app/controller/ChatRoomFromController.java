@@ -29,10 +29,7 @@ import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ChatRoomFromController {
@@ -201,13 +198,15 @@ public class ChatRoomFromController {
 
                                     label = new Label("You : ");
 
-                                  pane.getStyleClass().add("pane-style1");
+                                    pane.getStyleClass().add("pane-style1");
                                     pane.setPadding(new Insets(10, 10, 10, 10));
 
-                                    addFullMassage(pane,sendImage,imageView,label,48,48,mgBox,hBox,vbox);
+                                    addFullMassage(pane, sendImage, imageView, label, 48, 48, mgBox, hBox, vbox);
 
 
-                                } else if (parts[1].trim().startsWith("/")) {
+
+
+                                } else if (parts[1].trim().startsWith("/")){
 
 
                                     try {
@@ -223,10 +222,8 @@ public class ChatRoomFromController {
                                     pane.getStyleClass().add("pane-style1");
                                     pane.setPadding(new Insets(10, 10, 10, 10));
 
-                                    addFullMassage(pane,sendImage,imageView,label,150,150,mgBox,hBox,vbox);
-
-
-                                } else {
+                                    addFullMassage(pane, sendImage, imageView, label, 150, 150, mgBox, hBox, vbox);
+                            }else{
 
                                     label = new Label("You : " + parts[1].trim());
                                     chatAreaPane.setFitToWidth(true);
@@ -348,7 +345,6 @@ public class ChatRoomFromController {
 
     public void closeEmojiPanel(MouseEvent mouseEvent) {
 
-      //  chatAreaPane.setPrefHeight(616);
         emojiPane.setDisable(false);
 
         doTransaction(emojiPane,2,0,+334);
@@ -377,7 +373,7 @@ public class ChatRoomFromController {
     public void minimizeTheChat(MouseEvent mouseEvent) throws IOException {
 
         Stage stage = (Stage)imgMinimize.getScene().getWindow();
-        // is stage minimizable into task bar. (true | false)
+
         stage.setIconified(true);
 
     }

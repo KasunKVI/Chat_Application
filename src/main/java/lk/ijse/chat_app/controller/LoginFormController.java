@@ -72,6 +72,7 @@ public class LoginFormController {
 
                 Alert alert = new Alert(Alert.AlertType.ERROR, "This user is not exist! Please use Signup or Try again", SignUp, TryAgain);
                 alert.setHeaderText("Please Enter Valid Details");
+
                 // Customize the alert
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.getStylesheets().add(getClass().getResource("/lk/ijse/chat_app/css/customAlert.css").toExternalForm()); // Apply custom CSS
